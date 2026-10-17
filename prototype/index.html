@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SidelineReel · Roster Tag Check</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#14181f;--mut:#5b6573;--line:#e3e6eb;--brand:#0f7a4d;--brand-d:#0b5c3a;--warn:#b45309;--warnbg:#fef3c7;--bad:#b42318;--badbg:#fee4e2;--ok:#0f7a4d;--okbg:#dcfce7;--blue:#1d4ed8}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1116;--card:#171b22;--ink:#e8ebf0;--mut:#9aa4b2;--line:#2a313c;--warnbg:#3a2a0a;--badbg:#3b1512;--okbg:#0d2e1d;--brand:#34d399;--brand-d:#6ee7b7;--warn:#fbbf24;--bad:#f87171;--ok:#34d399}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.logo{font-weight:800;letter-spacing:-.02em}.logo b{color:var(--brand)}
+.game{color:var(--mut);font-size:13px}
+nav{margin-left:auto;display:flex;gap:6px}
+nav button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer;font:inherit;font-size:13px}
+nav button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+@media (prefers-color-scheme:dark){nav button.on{color:#06281a}}
+main{max-width:980px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:22px;margin:4px 0 4px}h2{font-size:16px;margin:0 0 8px}
+.sub{color:var(--mut);margin:0 0 16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:640px){.grid3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.stat{font-size:32px;font-weight:800;line-height:1}
+.stat.ok{color:var(--ok)}.stat.warn{color:var(--warn)}.stat.bad{color:var(--bad)}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+.pill.auto{background:var(--okbg);color:var(--ok)}.pill.review{background:var(--warnbg);color:var(--warn)}.pill.unassigned{background:var(--badbg);color:var(--bad)}.pill.done{background:var(--okbg);color:var(--ok)}.pill.held{background:var(--warnbg);color:var(--warn)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.btn{border:0;background:var(--brand);color:#fff;padding:10px 16px;border-radius:10px;font:inherit;font-weight:700;cursor:pointer}
+@media (prefers-color-scheme:dark){.btn{color:#06281a}}
+.btn.alt{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sp{height:14px}
+details{margin-top:14px}summary{cursor:pointer;color:var(--mut);font-size:13px}
+.ctl{display:grid;grid-template-columns:230px 1fr 48px;gap:10px;align-items:center;margin:8px 0;font-size:13px}
+@media(max-width:640px){.ctl{grid-template-columns:1fr}}
+.review{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+@media(max-width:760px){.review{grid-template-columns:1fr}}
+.frame{border-radius:10px;overflow:hidden;border:1px solid var(--line);line-height:0}
+.why{background:var(--warnbg);color:var(--warn);padding:10px 12px;border-radius:10px;font-size:13px;margin:10px 0}
+.cands{display:grid;gap:8px;margin:10px 0}
+.cand{display:flex;justify-content:space-between;align-items:center;border:2px solid var(--line);background:var(--card);color:var(--ink);padding:10px 12px;border-radius:10px;cursor:pointer;font:inherit;text-align:left}
+.cand:hover{border-color:var(--brand)}.cand small{color:var(--mut)}
+.cand.guess{border-color:var(--blue)}
+select{width:100%;padding:9px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.prog{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:8px 0 14px}.prog i{display:block;height:100%;background:var(--brand)}
+.reels{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.thumbs{display:flex;gap:6px;margin:8px 0;flex-wrap:wrap}
+.chip{position:relative;width:76px;line-height:0;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.chip button{position:absolute;inset:auto 2px 2px 2px;line-height:1.1;font-size:9px;border:0;border-radius:5px;background:rgba(0,0,0,.65);color:#fff;padding:2px;cursor:pointer;opacity:.0}
+.chip:hover button,.chip:focus-within button{opacity:1}
+.gate{padding:12px 14px;border-radius:10px;margin-bottom:14px;font-size:14px}
+.gate.ok{background:var(--okbg);color:var(--ok)}.gate.hold{background:var(--warnbg);color:var(--warn)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;max-width:90%}
+.toast.on{opacity:1}
+footer{color:var(--mut);font-size:12px;text-align:center;padding:10px 16px 30px}footer a{color:inherit}
+.note{font-size:12px;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Sideline<b>Reel</b> <span class="note">· Roster Tag Check (prototype)</span></div>
+  <div class="game">Ridgeline U12 Hawks vs Falcons · Sat · Coach Dana</div>
+  <nav id="nav"></nav>
+</header>
+<main id="app"></main>
+<div class="toast" id="toast"></div>
+<footer>Prototype for the Ajaia SidelineReel PM assessment · simulated data, no real footage · <a href="https://ajaia.ai" target="_blank" rel="noopener">ajaia.ai</a></footer>
+
+<script>
+const roster=[{n:1,name:'Mia Chen'},{n:4,name:'Noah Park'},{n:8,name:'Sam Ortiz'},{n:11,name:'Ava Ruiz'},{n:14,name:'Lily Okafor'},{n:16,name:'Ben Walsh'},{n:61,name:'Omar Haddad'}];
+const byN=n=>roster.find(r=>r.n===n);
+// read = jersey number the model read (null = unreadable); conf = model confidence in that read
+const clips=[
+ {id:1,t:'3:12',kind:'Goal',read:8,conf:.97},
+ {id:2,t:'7:40',kind:'Save',read:1,conf:.78},
+ {id:3,t:'12:05',kind:'Goal',read:14,conf:.88},
+ {id:4,t:'15:21',kind:'Big play',read:4,conf:.98},
+ {id:5,t:'19:33',kind:'Assist',read:11,conf:.985},
+ {id:6,t:'23:10',kind:'Save',read:1,conf:.99},
+ {id:7,t:'28:47',kind:'Goal',read:16,conf:.74},
+ {id:8,t:'31:02',kind:'Big play',read:null,conf:.41},
+ {id:9,t:'36:15',kind:'Goal',read:8,conf:.93},
+ {id:10,t:'44:50',kind:'Big play',read:61,conf:.95},
+ {id:11,t:'52:18',kind:'Assist',read:14,conf:.98},
+ {id:12,t:'58:09',kind:'Save',read:null,conf:.55}
+];
+const S={screen:1,rules:{auto:.90,coll:.97,unread:.60},final:{},discarded:{},reported:{},qi:0,sent:false,sentSnapshot:null};
+
+// Digits that vision models commonly mix up, plus swaps and 1/11-style containment
+const conf2=new Set(['1-7','3-8','5-6','6-8','0-8','8-9','4-9']);
+function confusable(a,b){
+  if(a===b)return false;const x=String(a),y=String(b);
+  if(x.split('').reverse().join('')===y)return true;
+  if(x.includes(y)||y.includes(x))return true;
+  if(x.length===y.length){let d=[];for(let i=0;i<x.length;i++)if(x[i]!==y[i])d.push([x[i],y[i]].sort().join('-'));if(d.length===1&&conf2.has(d[0]))return true;}
+  return false;
+}
+const collisions=n=>n==null?[]:roster.filter(r=>confusable(n,r.n));
+function status(c){
+  const R=S.rules;
+  if(S.reported[c.id])return{s:'review',why:'Reported by a parent as "not my kid".'};
+  if(c.read==null||c.conf<R.unread)return{s:'unassigned',why:'Number not readable in this frame.'};
+  const col=collisions(c.read);
+  if(col.length){
+    if(c.conf>=R.coll)return{s:'auto',why:''};
+    return{s:'review',why:`Roster also has ${col.map(r=>'#'+r.n+' '+r.name.split(' ')[0]).join(', ')} — numbers that can be confused. Needs ≥${Math.round(R.coll*100)}% to auto-confirm; this is ${Math.round(c.conf*100)}%.`};
+  }
+  return c.conf>=R.auto?{s:'auto',why:''}:{s:'review',why:`Model confidence ${Math.round(c.conf*100)}% is below the ${Math.round(R.auto*100)}% auto-confirm bar.`};
+}
+function resolved(c){ if(S.discarded[c.id])return 'discarded'; if(S.final[c.id]!=null)return S.final[c.id]; if(status(c).s==='auto')return c.read; return null; }
+const queue=()=>clips.filter(c=>status(c).s!=='auto'&&resolved(c)===null);
+const counts=()=>{const o={auto:0,review:0,unassigned:0};clips.forEach(c=>o[status(c).s]++);return o;};
+
+function frame(c,w=420,h=236,num=c.read){
+  const blur=((1-c.conf)*5).toFixed(1);const id='b'+c.id+'_'+w;
+  const shown=num==null?'?':num;
+  return `<svg width="100%" viewBox="0 0 ${w} ${h}" role="img" aria-label="Footage frame, jersey ${shown}"><defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f8f4e"/><stop offset="1" stop-color="#2d6e3c"/></linearGradient><filter id="${id}"><feGaussianBlur stdDeviation="${blur}"/></filter></defs>
+  <rect width="${w}" height="${h}" fill="url(#g${id})"/><rect x="0" y="${h*.55}" width="${w}" height="2" fill="rgba(255,255,255,.35)"/><circle cx="${w*.8}" cy="${h*.3}" r="${h*.12}" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+  <g transform="translate(${w*.08},${h*.30}) scale(.55)" opacity=".85"><path d="M0 40 L30 0 L70 0 L100 40 L80 55 L70 40 L70 130 L30 130 L30 40 L20 55Z" fill="#b91c1c"/></g>
+  <g transform="translate(${w*.34},${h*.12}) scale(${h/190})"><path d="M0 40 L30 0 L70 0 L100 40 L80 55 L70 40 L70 130 L30 130 L30 40 L20 55Z" fill="#1d4ed8"/><circle cx="50" cy="-14" r="16" fill="#e8b98f"/>
+  <text x="50" y="82" text-anchor="middle" font-size="${String(shown).length>1?36:44}" font-weight="800" fill="#fff" font-family="Arial Black,Arial,sans-serif" filter="url(#${id})">${shown}</text></g></svg>`;
+}
+const pill=s=>({auto:'<span class="pill auto">Auto-confirmed</span>',review:'<span class="pill review">Needs check</span>',unassigned:'<span class="pill unassigned">Can’t read</span>'}[s]);
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2200);}
+
+function nav(){
+  const steps=['1 · Game processed','2 · Review queue','3 · Recap & send'];
+  document.getElementById('nav').innerHTML=steps.map((s,i)=>`<button class="${S.screen===i+1?'on':''}" data-a="go" data-v="${i+1}">${s}</button>`).join('');
+}
+
+function screen1(){
+  const c=counts(),q=queue().length;
+  return `<h1>Saturday’s game is processed</h1>
+  <p class="sub">SidelineReel found ${clips.length} highlight moments. Before any reel is built, we matched each jersey number to your roster. Only matches we’re sure about go straight through.</p>
+  <div class="grid3">
+   <div class="card"><div class="stat ok">${c.auto}</div><div>Auto-confirmed</div><div class="note">High confidence and no look-alike number on your roster</div></div>
+   <div class="card"><div class="stat warn">${c.review}</div><div>Need a quick check</div><div class="note">Low confidence, or a look-alike number exists (1/11, 4/14, 16/61…)</div></div>
+   <div class="card"><div class="stat bad">${c.unassigned}</div><div>Can’t read the number</div><div class="note">Held out until you tag them or discard them</div></div>
+  </div><div class="sp"></div>
+  <div class="row"><button class="btn" data-a="go" data-v="2" ${q?'':'disabled'}>Review ${q} clip${q===1?'':'s'} (≈ ${Math.max(1,Math.round(q*.4))} min) →</button>
+  ${q?'':'<span class="pill done">All clips resolved</span> <button class="btn alt" data-a="go" data-v="3">Go to recap →</button>'}</div>
+  <div class="sp"></div>
+  <div class="card"><h2>All moments</h2><table><thead><tr><th>Time</th><th>Moment</th><th>Model read</th><th>Conf.</th><th>Status</th><th>Assigned</th></tr></thead><tbody>
+  ${clips.map(x=>{const st=status(x),r=resolved(x);const a=r==='discarded'?'Discarded':r!=null?`#${r} ${byN(r)?.name||''}`:'<span class="note">— held —</span>';
+   return `<tr><td>${x.t}</td><td>${x.kind}</td><td>${x.read==null?'?':'#'+x.read}</td><td>${Math.round(x.conf*100)}%</td><td>${pill(st.s)}</td><td>${a}</td></tr>`}).join('')}
+  </tbody></table></div>
+  <details><summary>Matching rules (team admin) — try moving these and watch the queue size change</summary>
+   <div class="card" style="margin-top:8px">
+   ${[['auto','Auto-confirm at ≥ (no look-alike number)',.5,1],['coll','Auto-confirm at ≥ (look-alike number on roster)',.8,1],['unread','Below this, treat number as unreadable',.2,.9]].map(([k,l,mn,mx])=>`<div class="ctl"><label for="r_${k}">${l}</label><input id="r_${k}" type="range" min="${mn}" max="${mx}" step="0.01" value="${S.rules[k]}" data-a="rule" data-k="${k}"><b>${Math.round(S.rules[k]*100)}%</b></div>`).join('')}
+   <div class="note">Starting values only. Production thresholds are calibrated on a labeled audit of real games; the tradeoff is wrong-kid errors vs. coach workload. Changing a rule resets your decisions.</div></div></details>`;
+}
+
+function screen2(){
+  const q=queue(),total=clips.filter(c=>status(c).s!=='auto').length;
+  if(!q.length)return `<h1>Review queue</h1><div class="card"><div class="gate ok"><b>All clear.</b> Every held clip has been tagged or discarded.</div><button class="btn" data-a="go" data-v="3">Go to recap →</button></div>`;
+  const i=Math.min(S.qi,q.length-1),c=q[i];const st=status(c);
+  const cand=[];const seen=new Set();
+  const add=n=>{if(n!=null&&byN(n)&&!seen.has(n)){seen.add(n);cand.push(n)}};
+  add(c.read);collisions(c.read).forEach(r=>add(r.n));
+  const rest=roster.filter(r=>!seen.has(r.n));
+  const done=total-q.length;
+  return `<h1>Who is this?</h1><p class="sub">${q.length} left · only unclear clips are shown. Unresolved clips are never sent to families.</p>
+  <div class="prog"><i style="width:${done/total*100}%"></i></div>
+  <div class="review"><div><div class="frame">${frame(c)}</div><div class="note" style="margin-top:6px">${c.t} · ${c.kind} · model read ${c.read==null?'no number':'#'+c.read} at ${Math.round(c.conf*100)}%</div></div>
+  <div><div class="why"><b>Why you’re seeing this:</b> ${st.why}</div>
+  <div class="cands">${cand.map(n=>`<button class="cand ${n===c.read?'guess':''}" data-a="assign" data-id="${c.id}" data-v="${n}"><span><b>#${n}</b> ${byN(n).name}</span><small>${n===c.read?'model’s guess':'look-alike'}</small></button>`).join('')}</div>
+  <select id="other" data-a="other" data-id="${c.id}"><option value="">Someone else on the roster…</option>${rest.map(r=>`<option value="${r.n}">#${r.n} ${r.name}</option>`).join('')}</select>
+  <div class="sp"></div><button class="btn alt" data-a="discard" data-id="${c.id}">Not a rostered player / discard clip</button></div></div>`;
+}
+
+function reelsFrom(snapshotOnly){
+  const m={};roster.forEach(r=>m[r.n]=[]);
+  clips.forEach(c=>{const r=resolved(c);if(r!=null&&r!=='discarded'&&m[r])m[r].push(c)});
+  return m;
+}
+function screen3(){
+  const held=queue().length,m=reelsFrom();
+  const gate=S.sent?`<div class="gate ok"><b>Recap sent to ${roster.filter(r=>m[r.n].length).length} families.</b> ${held?`${held} unresolved clip${held>1?'s were':' was'} left out — nothing unreviewed went out. The coach gets a reminder to tag ${held>1?'them':'it'} for next week’s recap.`:'All clips were confirmed before send.'}</div>`
+   :held?`<div class="gate hold"><b>${held} clip${held>1?'s are':' is'} held.</b> They’re excluded from every reel and from thumbnails until tagged. Send cutoff is Sunday 6:00 PM. <a href="#" data-a="go" data-v="2">Review now</a></div>`
+   :`<div class="gate ok"><b>Ready.</b> Every clip in every reel was confirmed by the model at high confidence or by Coach Dana.</div>`;
+  return `<h1>Weekly recap · preview</h1><p class="sub">Each kid’s reel and thumbnail only use confirmed clips. Hover a clip and tap “Not my kid” to simulate a parent report.</p>${gate}
+  <div class="reels">${roster.map(r=>{const cl=m[r.n];return `<div class="card"><div class="row" style="justify-content:space-between"><b>#${r.n} ${r.name}</b><span class="pill ${cl.length?'done':'held'}">${cl.length} clip${cl.length===1?'':'s'}</span></div>
+   <div class="thumbs">${cl.length?cl.map(c=>`<div class="chip">${frame(c,152,86,r.n)}${S.sent?'':`<button data-a="report" data-id="${c.id}">Not my kid</button>`}</div>`).join(''):'<span class="note">No confirmed clips this week — no reel is sent instead of a wrong one.</span>'}</div>
+   <div class="note">${cl.length?'Thumbnail: first confirmed clip':'Parent gets a short “no highlights this week” note'}</div></div>`}).join('')}</div>
+  <div class="sp"></div><div class="row"><button class="btn" data-a="send" ${S.sent?'disabled':''}>${S.sent?'Sent':'Simulate Sunday 6 PM send'}</button><button class="btn alt" data-a="reset">Reset demo</button></div>
+  <p class="note">Notification timing (quiet hours) is a separate fast-follow and not part of this prototype.</p>`;
+}
+
+function render(){
+  nav();
+  document.getElementById('app').innerHTML=[screen1,screen2,screen3][S.screen-1]();
+}
+function resetDecisions(){S.final={};S.discarded={};S.reported={};S.qi=0;S.sent=false;}
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-a]');if(!el||el.tagName==='SELECT'||el.tagName==='INPUT')return;
+  const a=el.dataset.a,id=+el.dataset.id,v=el.dataset.v;
+  if(a==='go'){e.preventDefault();S.screen=+v;S.qi=0}
+  else if(a==='assign'){S.final[id]=+v;delete S.reported[id];toast(`Tagged to #${v} ${byN(+v).name}`)}
+  else if(a==='discard'){S.discarded[id]=true;toast('Clip discarded')}
+  else if(a==='report'){const had=resolved(clips.find(c=>c.id===id));delete S.final[id];S.reported[id]=true;toast('Reported. Clip removed from this reel and sent back to the coach queue.')}
+  else if(a==='send'){S.sent=true;}
+  else if(a==='reset'){resetDecisions();S.screen=1}
+  render();
+});
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(el.dataset.a==='rule'){el.nextElementSibling.textContent=Math.round(el.value*100)+'%';}
+});
+document.addEventListener('change',e=>{
+  const el=e.target;
+  if(el.dataset.a==='rule'){S.rules[el.dataset.k]=+el.value;resetDecisions();render();const d=document.querySelector('details');d&&(d.open=true);}
+  if(el.dataset.a==='other'&&el.value){S.final[+el.dataset.id]=+el.value;toast(`Tagged to #${el.value} ${byN(+el.value).name}`);render();}
+});
+render();
+</script>
+</body>
+</html>
