@@ -1,9 +1,9 @@
 # SidelineReel — PM Assessment Submission
 
-**Video:** `<PASTE VIDEO LINK HERE — if on YouTube, include "Ajaia" in the title>`
-**Prototype:** `<PASTE HOSTED LINK HERE>` (runnable file: `prototype/index.html`, open it in any browser — no install, no backend)
+**Video:** [Watch the walkthrough on Loom (Ajaia SidelineReel PM assessment)](https://www.loom.com/share/9f5df92eb0374e58b29281c7d2cfd03c)
+**Prototype (live, clickable):** [https://adilfaruqi1.github.io/ajaia/prototype/](https://adilfaruqi1.github.io/ajaia/prototype/) · source: [prototype/index.html](https://github.com/adilfaruqi1/ajaia/blob/main/prototype/index.html)
 **Company:** [Ajaia](https://ajaia.ai)
-**Portfolio (optional):** `<link or leave blank>`
+**Repository:** [github.com/adilfaruqi1/ajaia](https://github.com/adilfaruqi1/ajaia)
 
 ---
 
@@ -148,18 +148,11 @@ Three steps:
 
 Try it: Review queue → tag a few clips → open Recap → send before finishing to see held clips excluded.
 
-> **Before submitting:** upload `index.html` somewhere public (GitHub Pages, Netlify Drop, etc.), paste the link above, and open it in an incognito window to confirm it loads.
 
 ---
 
-## Task 4 — AI workflow note (draft; edit so it matches what you actually did)
+## Task 4 — AI workflow note
 
 I used Claude to cross-read the five materials, draft the spec structure and acceptance criteria, and build the prototype. I kept the decisions human: which problem is #1, the call not to commit to livestreaming for Ridgeline, and the wording I'd give to Sales. One thing I checked: the dashboard's 92% share rate, which I recomputed over all generated reels (about 64%) after noticing the denominator was opened reels only. One thing I rejected: a suggestion to offer Ridgeline a "livestream-lite" commitment before signups. I couldn't support it with evidence or a credible estimate, and it would have meant promising a date to a customer on hope. I also caught and fixed a prototype bug where dragging a threshold slider re-rendered it mid-drag.
 
 ---
-
-## Video outline (5–10 min, screen + camera)
-1. **Roadmap call (2 min):** the five signals, the 92% → ~64% point, why tagging beats livestreaming and the editor.
-2. **Spec (2 min):** the three states, look-alike rule, coach queue, send-cutoff fallback, two failure modes.
-3. **Demo (2 min):** the prototype, end to end, including moving a threshold and a parent report.
-4. **Close (1 min):** who I am, why this role, why Ajaia, salary expectation: `<YOUR NUMBER>`. Do not mention current compensation.

@@ -1,0 +1,228 @@
+<!doctype html><html><head><meta charset='utf-8'><title>SidelineReel PM Assessment Submission - Ajaia</title><style>@page{size:A4;margin:16mm 15mm}body{font:11.5px/1.55 Segoe UI,Arial,sans-serif;color:#14181f}
+h1{font-size:24px;margin:0 0 8px}h2{font-size:17px;color:#0f7a4d;border-bottom:2px solid #e3e6eb;padding-bottom:3px;margin:22px 0 8px;page-break-after:avoid}h3{font-size:13.5px;margin:14px 0 4px;page-break-after:avoid}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:10.8px}th,td{border:1px solid #d8dce2;padding:5px 7px;text-align:left;vertical-align:top}th{background:#f1f3f6}tr{page-break-inside:avoid}
+blockquote{margin:8px 0;padding:6px 12px;border-left:4px solid #0f7a4d;background:#f6faf7}code{background:#f1f3f6;padding:1px 4px;border-radius:3px}a{color:#0f7a4d}hr{border:0;border-top:1px solid #e3e6eb;margin:12px 0}li{margin:2px 0}</style></head><body><h1>SidelineReel — PM Assessment Submission</h1>
+<p><strong>Video:</strong> <a href="https://www.loom.com/share/9f5df92eb0374e58b29281c7d2cfd03c">Watch the walkthrough on Loom (Ajaia SidelineReel PM assessment)</a><br />
+<strong>Prototype (live, clickable):</strong> <a href="https://adilfaruqi1.github.io/ajaia/prototype/">https://adilfaruqi1.github.io/ajaia/prototype/</a> · source: <a href="https://github.com/adilfaruqi1/ajaia/blob/main/prototype/index.html">prototype/index.html</a><br />
+<strong>Company:</strong> <a href="https://ajaia.ai">Ajaia</a><br />
+<strong>Repository:</strong> <a href="https://github.com/adilfaruqi1/ajaia">github.com/adilfaruqi1/ajaia</a></p>
+<hr />
+<h2>Task 1 — The roadmap call</h2>
+<h3>Decision in one line</h3>
+<p><strong>Build roster-tag confidence scoring plus a coach confirm step next</strong>, so SidelineReel stops putting the wrong kid in a reel. <strong>Do not build livestreaming for Ridgeline this cycle, and do not build more Reel Editor controls.</strong></p>
+<h3>How I read each piece of signal</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Material</th>
+<th>What it actually says</th>
+<th>How much I trust it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Carla (Ridgeline) email</td>
+<td>Reels are why <strong>half of her parents renewed</strong>. The board wants live streaming for grandparents and scouts. Signups open in 6 weeks.</td>
+<td>Real stakeholder, but it's one buyer's <em>proposed solution</em>. The underlying need (remote relatives and scouts watching) is plausible and unproven.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Research summary</td>
+<td>58% of 210 surveyed parents ask for more editing controls. In 90 days of usage, only <strong>6% opened the Reel Editor</strong> and <strong>under 1% of those finished an edit</strong>. The Share button is used in 90% of auto-recaps.</td>
+<td><strong>Behavior beats stated preference.</strong> Parents say they want editing but don't use it. They share. The value is in the finished product arriving correct, and then going to other people.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Support tickets</td>
+<td>Three of five are the same defect: <strong>wrong kid in the reel</strong> (14 vs 4, 1 vs 11, swapped digits). They come from three different clubs: Ridgeline, Brightwater, Cobblestone. The other two are an app icon preference and an occasionally missing watermark.</td>
+<td>Three independent clubs describing one failure is a pattern, not noise. The icon and watermark tickets are low-severity, single reports.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Slack (Jamal, Sales Ops)</td>
+<td>$180k season, biggest account. Carla has said twice she may shop around. Sales wants something concrete.</td>
+<td>The revenue risk is real, and I'm not dismissing it. But urgency comes from who is asking, not from usage evidence.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Product Health dashboard</td>
+<td>Reel Share Rate = 92%, but only over reels that were <em>opened</em>. About <strong>30% of reels are never opened</strong>. The analytics note says those are mostly late-night notifications or a <strong>wrong-kid thumbnail</strong>.</td>
+<td>The headline number flatters us. See below.</td>
+</tr>
+</tbody>
+</table>
+<h3>The metric that looks better than it is</h3>
+<p>The 92% is calculated over opened reels only. About 70% of reels are opened. If the 92% holds for opened reels, then roughly <strong>0.70 × 0.92 ≈ 64% of all generated reels are shared</strong>, not 92%. The missing 30% is exactly where the wrong-thumbnail problem sits. I would report share rate over <em>generated</em> reels going forward, and show "opened" as a separate funnel step. (Caveat: the analytics note says "most" of the unopened reels are explained by timing and thumbnails. It doesn't give a split, so I don't know how much of the 30% is wrong-kid versus timing.)</p>
+<h3>Why roster tagging wins</h3>
+<ol>
+<li><strong>It's the one problem three unrelated sources point at.</strong> Tickets (3 clubs), the dashboard note (wrong thumbnails lower open rate), and Carla's own club (the <em>first</em> ticket is a Ridgeline parent).</li>
+<li><strong>It protects the thing customers say they pay for.</strong> Carla says reels are why half her parents renewed. A reel that shows another child is the failure that most directly attacks that value. This is a bigger threat to Ridgeline's renewal than the absence of live streaming, and it's one we can fix.</li>
+<li><strong>It sits upstream of the other metrics.</strong> Wrong thumbnails depress opens, opens gate shares, and shares are the growth loop (90% share use on recaps). Fixing tagging lifts the funnel without adding new surface area.</li>
+<li><strong>It's the core job.</strong> SidelineReel's job is "the right highlight in the right kid's reel."</li>
+</ol>
+<h3>Ranked roadmap</h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Item</th>
+<th>Evidence</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Roster-tag confidence + coach confirm queue</strong> (spec in Task 2)</td>
+<td>3 tickets across 3 clubs; dashboard note on thumbnails; Ridgeline's own parent</td>
+<td><strong>Build next</strong></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Quiet-hours delivery</strong> (don't notify families late at night) and <strong>thumbnails taken from confirmed clips only</strong></td>
+<td>Analytics note links late-night notifications to unopened reels. Small change.</td>
+<td>Fast follow, same cycle if capacity allows. Confidence is medium because the analytics note gives no split.</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>Fix the share-rate metric</strong> (denominator = generated reels) and instrument the open funnel</td>
+<td>The 92% is misleading</td>
+<td>Do now, near-zero cost. It's a dashboard fix, not a roadmap item.</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>Discovery on remote viewing</strong> (grandparents, scouts): who watches, how often, what they'd pay for. Test whether a lighter option (shareable season highlight page) meets the need.</td>
+<td>One buyer asked. No usage data supports it yet.</td>
+<td>Research only, no build commitment.</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>Triage the missing-watermark bug</strong> (camera-roll save)</td>
+<td>One coach, "not urgent"</td>
+<td>Bug backlog. Escalate only if brand/co-marketing is affected or reports repeat.</td>
+</tr>
+</tbody>
+</table>
+<h3>What I would NOT build next</h3>
+<ul>
+<li><strong>Livestreaming for Ridgeline: not this cycle.</strong> Reasons:</li>
+<li>It's a different product (real-time video delivery, uptime, bandwidth, moderation of live video of minors, a very different cost structure). It is not on the path of "find each kid's highlights."</li>
+<li>The evidence is one stakeholder's email plus a renewal-driven sales request. No usage or survey data supports it.</li>
+<li>Six weeks is not credible for a safe live-video product involving children, and a rushed version would damage trust.</li>
+<li>The risk is real: I'm choosing to accept some chance of losing a $180k account rather than promise something we can't deliver. I would flag that explicitly to leadership so it's an informed decision, not a surprise. If leadership wants to hedge, the right move is to explore a partner or integration option as a separate investigation, not to commit to a build.</li>
+<li><strong>More Reel Editor controls / music: not now.</strong> 58% <em>said</em> it, but 6% open the editor and under 1% of openers finish an edit. Music also brings licensing risk. I would revisit only if the editor's open rate rises once reels are trustworthy.</li>
+<li><strong>App icon change:</strong> one ticket. Log it, fold it into the next brand pass.</li>
+</ul>
+<h3>What Sales can honestly tell Carla (draft)</h3>
+<blockquote>
+<p>Carla, thanks for being direct. Live streaming isn't something we can commit to before your signups, and I'd rather say that now than promise something we'd ship badly with children on camera. What we can commit to: a fix for the wrong-player clips your parents have reported, which our data shows is the most-reported reel problem across clubs. We'll bring your club into the first rollout, and I'll share a date once engineering has sized it. Separately, I'd like 20 minutes with you to understand who on your board's list would be watching live (grandparents? scouts?), because there may be a lighter way to serve them.</p>
+</blockquote>
+<p>This is concrete without over-promising. It names a real action, a pilot slot, and a next step. The date is deliberately conditional on an engineering estimate I don't have.</p>
+<h3>How I'd hold this under pushback</h3>
+<ul>
+<li><strong>"We could lose $180k."</strong> Agreed, it's the biggest exposure, and I'm not hiding it. But the commitment that protects the renewal is the one customers are already complaining about: the wrong kid in the reel at Ridgeline itself. If I promise streaming and miss, we lose the account <em>and</em> credibility. I'd change my mind if Ridgeline gave a written, specific requirement and we found it could be met with a small, safe build. New evidence would move me, volume of asking wouldn't.</li>
+<li><strong>"The survey says editing controls."</strong> Stated preference versus behavior: 6% opened, under 1% finished. If the editor were the real need, people who opened it would complete edits.</li>
+<li><strong>"Three tickets is anecdotal."</strong> Fair. That's why the spec starts with a baseline audit of real tag accuracy, and why the 92% number needs fixing. If the audit shows wrong-kid clips are under, say, 1%, I would drop this from #1.</li>
+</ul>
+<hr />
+<h2>Task 2 — Spec: Roster-tag confidence + coach confirm</h2>
+<h3>Problem</h3>
+<p>When jersey numbers look alike (1/11, 4/14, 16/61 or swapped digits), SidelineReel sometimes assigns a clip to the wrong kid. The wrong clip lands in the kid's reel or becomes the thumbnail. Parents are upset, may not open the reel, and the club's renewal is at risk.</p>
+<h3>Outcome</h3>
+<ul>
+<li><strong>Primary:</strong> wrong-kid clips in delivered reels fall to <strong>≤ 1%</strong> of delivered clips within four weeks of general release (measured by weekly human audit).</li>
+<li><strong>Secondary:</strong> reels with an unopened status fall toward ≤ 20% (from about 30%), jointly with the quiet-hours item.</li>
+<li><strong>Leading indicator:</strong> "wrong player" support tickets and "Not my kid" reports.</li>
+<li><strong>Step 0:</strong> the baseline is unknown. Before building, audit a labeled sample (about 300 clips from games at the three clubs that filed tickets) to measure current accuracy and which number pairs fail. The targets above are provisional until that baseline exists.</li>
+</ul>
+<h3>Behavior</h3>
+<p>Each detected highlight gets a <strong>confidence</strong> that its jersey number was read correctly. A clip lands in one of three states:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Rule (starting values, tuned after the audit)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Auto-confirmed</strong></td>
+<td>Confidence ≥ 0.90 and no look-alike number on the roster, <strong>or</strong> confidence ≥ 0.97 if a look-alike number exists</td>
+</tr>
+<tr>
+<td><strong>Needs review</strong></td>
+<td>Anything between the bars, or reported by a parent as "not my kid"</td>
+</tr>
+<tr>
+<td><strong>Unassigned</strong></td>
+<td>Confidence &lt; 0.60 or no number readable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Look-alike numbers</strong> are roster pairs where one is the other with digits swapped (16/61), is the other with a leading 1 or a doubled digit (1/11, 4/14), or differs by one commonly confused digit (e.g. 3/8, 5/6, 1/7).</p>
+<p>Clips in Needs review or Unassigned are <strong>held</strong>: excluded from every reel, every thumbnail, and the weekly recap until resolved.</p>
+<h3>Coach review queue</h3>
+<ul>
+<li>Shows each held clip (still frame plus the moment), why it was flagged, the model's guess, look-alike candidates from the roster, and an option to pick anyone else or discard.</li>
+<li>Common case is one tap. Coach can delegate to an assistant coach.</li>
+<li>On resolve: the clip joins the right reel, the reel and thumbnail regenerate.</li>
+<li><strong>Reminders:</strong> one when processing finishes if anything is held, one 12 hours before the send cutoff.</li>
+<li><strong>Send cutoff fallback:</strong> at cutoff, the recap sends with <strong>confirmed clips only</strong>. Held clips are never sent. If a kid has zero confirmed clips, the family gets a short "no highlights this week" note instead of a reel. The coach receives the list of leftover clips to tag for next time.</li>
+</ul>
+<h3>Parent report</h3>
+<p>Every clip in a reel has a <strong>"Not my kid"</strong> action. It removes the clip from that reel immediately and returns it to the coach queue.</p>
+<h3>In scope</h3>
+<p>Confidence scoring, look-alike rule, three states, hold logic, coach queue, cutoff fallback, thumbnail-from-confirmed-only, parent report, decision logging, weekly audit tooling, metrics, per-account thresholds editable by ops with an audit log.</p>
+<h3>Out of scope</h3>
+<ul>
+<li>A new or retrained detection model (corrections are logged as labeled data for a later effort).</li>
+<li><strong>Face recognition.</strong> These are minors; this is deliberately jersey-number-only.</li>
+<li>Livestreaming, Reel Editor changes, music.</li>
+<li>Quiet-hours notifications (separate item #2).</li>
+<li>Retroactively re-tagging old games (parents can use "Not my kid" on past reels).</li>
+</ul>
+<h3>Where a human stays in the loop</h3>
+<ol>
+<li><strong>Coach (or delegate)</strong> decides every ambiguous clip. Nothing ambiguous reaches families without a human.</li>
+<li><strong>Parent</strong> can flag any clip.</li>
+<li><strong>Internal reviewer</strong> audits 100 random auto-confirmed clips per week (at least half from clubs/games with look-alike numbers) and signs off on any threshold change.</li>
+</ol>
+<h3>Acceptance criteria</h3>
+<ol>
+<li>Given roster numbers 4 and 14, a clip read as 14 at 0.88 is <strong>Needs review</strong> and appears in no reel or thumbnail.</li>
+<li>Given the same roster, a clip read as 14 at 0.98 is <strong>Auto-confirmed</strong>.</li>
+<li>Given no look-alike number, a clip read at 0.93 is Auto-confirmed; at 0.75 it is Needs review; at 0.40 or with no number it is Unassigned.</li>
+<li>Held clips appear in zero reels, zero thumbnails, and zero recap emails (test with a fixture game).</li>
+<li>When a coach confirms a clip, the reel and thumbnail update within 1 minute.</li>
+<li>At the send cutoff with unresolved clips, the recap sends with confirmed clips only, a kid with none gets the "no highlights" note, and the coach gets the leftover list.</li>
+<li>"Not my kid" removes the clip from that reel immediately and creates a queue item.</li>
+<li>Coach reminders fire at processing completion (if any held) and 12 hours before cutoff; none fire if nothing is held.</li>
+<li>Every decision (clip, before, after, who, when) is stored and exportable as labeled data.</li>
+<li>Threshold changes require an authorized ops user and are audit-logged.</li>
+<li>Only coaches/admins of that team can see queue frames. No facial recognition is performed or stored.</li>
+<li>A dashboard shows: held rate, queue completion before cutoff, "Not my kid" per 1,000 clips, weekly audit error rate.</li>
+<li>Median time to resolve a clip in the queue is ≤ 10 seconds (measured after pilot).</li>
+</ol>
+<h3>Rollout</h3>
+<p>Baseline audit → pilot with the clubs that reported the issue (Ridgeline, Brightwater, Cobblestone) → general release. Timing depends on an engineering estimate I don't have, so I would not give a date outside the company until that estimate exists.</p>
+<h3>Top two ways this fails, and what catches each</h3>
+<ol>
+<li><strong>The queue becomes a chore, coaches don't clear it, and reels come out thin or empty.</strong> That swaps one disappointment for another.<br />
+   - <em>Catch:</em> alert when held rate is &gt; 25% of clips in a game, or fewer than 60% of queues are cleared before cutoff for two weeks in a row, or kids with zero clips rise. <em>Response:</em> loosen thresholds based on audit data, add assistant-coach delegation and batch confirm.</li>
+<li><strong>Confident wrong matches slip through as Auto-confirmed</strong> (the look-alike rule misses a case, e.g. partial occlusion or a number the model reads confidently but wrongly).<br />
+   - <em>Catch:</em> weekly human audit of random auto-confirmed clips (alert above 1% error), and "Not my kid" reports per 1,000 clips (alert above 3). <em>Response:</em> automatically raise thresholds for the affected pairs and review at the next audit.</li>
+</ol>
+<hr />
+<h2>Task 3 — Prototype</h2>
+<p><strong>File:</strong> <code>prototype/index.html</code> (self-contained, opens in any browser; simulated data, no real footage or backend).</p>
+<p>Three steps:<br />
+1. <strong>Game processed:</strong> the 12 highlight moments sorted into auto-confirmed, needs check, and can't read, with a "Matching rules" panel. Move the thresholds and see how the queue size changes. This is the tradeoff between wrong-kid errors and coach workload.<br />
+2. <strong>Review queue:</strong> one clip at a time with the frame, the reason it was flagged, the model's guess and the look-alike candidates, plus "someone else" and "discard."<br />
+3. <strong>Recap and send:</strong> per-kid reels and thumbnails built only from confirmed clips, a "Simulate Sunday 6 PM send" that leaves out anything still held, and a hover-to-reveal "Not my kid" report that returns a clip to the queue.</p>
+<p>Try it: Review queue → tag a few clips → open Recap → send before finishing to see held clips excluded.</p>
+<hr />
+<h2>Task 4 — AI workflow note</h2>
+<p>I used Claude to cross-read the five materials, draft the spec structure and acceptance criteria, and build the prototype. I kept the decisions human: which problem is #1, the call not to commit to livestreaming for Ridgeline, and the wording I'd give to Sales. One thing I checked: the dashboard's 92% share rate, which I recomputed over all generated reels (about 64%) after noticing the denominator was opened reels only. One thing I rejected: a suggestion to offer Ridgeline a "livestream-lite" commitment before signups. I couldn't support it with evidence or a credible estimate, and it would have meant promising a date to a customer on hope. I also caught and fixed a prototype bug where dragging a threshold slider re-rendered it mid-drag.</p>
+<hr /></body></html>
