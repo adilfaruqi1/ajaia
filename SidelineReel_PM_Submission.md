@@ -82,7 +82,7 @@ Each detected highlight gets a **confidence** that its jersey number was read co
 | **Needs review** | Anything between the bars, or reported by a parent as "not my kid" |
 | **Unassigned** | Confidence < 0.60 or no number readable |
 
-**Look-alike numbers** are roster pairs where one is the other with digits swapped (16/61), contains the other (1/11, 4/14), or differs by one commonly confused digit (e.g. 3/8, 5/6, 1/7).
+**Look-alike numbers** are roster pairs where one is the other with digits swapped (16/61), is the other with a leading 1 or a doubled digit (1/11, 4/14), or differs by one commonly confused digit (e.g. 3/8, 5/6, 1/7).
 
 Clips in Needs review or Unassigned are **held**: excluded from every reel, every thumbnail, and the weekly recap until resolved.
 

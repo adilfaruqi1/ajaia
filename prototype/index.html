@@ -36,8 +36,8 @@ th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}th{col
 details{margin-top:14px}summary{cursor:pointer;color:var(--mut);font-size:13px}
 .ctl{display:grid;grid-template-columns:230px 1fr 48px;gap:10px;align-items:center;margin:8px 0;font-size:13px}
 @media(max-width:640px){.ctl{grid-template-columns:1fr}}
-.review{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
-@media(max-width:760px){.review{grid-template-columns:1fr}}
+.qgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+@media(max-width:760px){.qgrid{grid-template-columns:1fr}}
 .frame{border-radius:10px;overflow:hidden;border:1px solid var(--line);line-height:0}
 .why{background:var(--warnbg);color:var(--warn);padding:10px 12px;border-radius:10px;font-size:13px;margin:10px 0}
 .cands{display:grid;gap:8px;margin:10px 0}
@@ -94,7 +94,9 @@ const conf2=new Set(['1-7','3-8','5-6','6-8','0-8','8-9','4-9']);
 function confusable(a,b){
   if(a===b)return false;const x=String(a),y=String(b);
   if(x.split('').reverse().join('')===y)return true;
-  if(x.includes(y)||y.includes(x))return true;
+  // 4/14, 6/16, 1/11: a leading "1" or a doubled digit is easily missed or added
+  const [s,l]=x.length<y.length?[x,y]:[y,x];
+  if(l.length===2&&s.length===1&&(l[0]===l[1]&&s===l[0]||l[0]==='1'&&l[1]===s))return true;
   if(x.length===y.length){let d=[];for(let i=0;i<x.length;i++)if(x[i]!==y[i])d.push([x[i],y[i]].sort().join('-'));if(d.length===1&&conf2.has(d[0]))return true;}
   return false;
 }
@@ -164,7 +166,7 @@ function screen2(){
   const done=total-q.length;
   return `<h1>Who is this?</h1><p class="sub">${q.length} left · only unclear clips are shown. Unresolved clips are never sent to families.</p>
   <div class="prog"><i style="width:${done/total*100}%"></i></div>
-  <div class="review"><div><div class="frame">${frame(c)}</div><div class="note" style="margin-top:6px">${c.t} · ${c.kind} · model read ${c.read==null?'no number':'#'+c.read} at ${Math.round(c.conf*100)}%</div></div>
+  <div class="qgrid"><div><div class="frame">${frame(c)}</div><div class="note" style="margin-top:6px">${c.t} · ${c.kind} · model read ${c.read==null?'no number':'#'+c.read} at ${Math.round(c.conf*100)}%</div></div>
   <div><div class="why"><b>Why you’re seeing this:</b> ${st.why}</div>
   <div class="cands">${cand.map(n=>`<button class="cand ${n===c.read?'guess':''}" data-a="assign" data-id="${c.id}" data-v="${n}"><span><b>#${n}</b> ${byN(n).name}</span><small>${n===c.read?'model’s guess':'look-alike'}</small></button>`).join('')}</div>
   <select id="other" data-a="other" data-id="${c.id}"><option value="">Someone else on the roster…</option>${rest.map(r=>`<option value="${r.n}">#${r.n} ${r.name}</option>`).join('')}</select>
